@@ -29,4 +29,3 @@ public class Chart {
         new SwingWrapper<XYChart>(charts).displayChartMatrix();
     }
 }
-}
