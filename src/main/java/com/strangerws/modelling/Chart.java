@@ -27,5 +27,6 @@ public class Chart {
         series.setMarker(SeriesMarkers.NONE);
         charts.add(chart);
         new SwingWrapper<XYChart>(charts).displayChartMatrix();
+
     }
 }
