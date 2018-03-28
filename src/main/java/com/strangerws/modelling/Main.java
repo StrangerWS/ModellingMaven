@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         Task task = new Task();
-        task3();
+        task5();
         //Pair<List<Double>, List<Double>> result = task2();
         //new Chart(result.getKey(), result.getValue()).make();
     }

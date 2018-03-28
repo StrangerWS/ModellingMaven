@@ -34,7 +34,6 @@ public class Task {
         return new Pair<Double, Double>(fx, gy);
     }
 
-
     public static Pair<List<Double>, List<Double>> task1() {
         System.out.print("Enter a: ");
         Scanner scanner = new Scanner(System.in);
@@ -62,17 +61,14 @@ public class Task {
         System.out.println("f(0.95 * N) = " + funcFinal + "; \nt = " + tAnswer);
 
         return new Pair<List<Double>, List<Double>>(xArr, yArr);
-    }
+    }//+
 
     public static void task2() {
         List<List<Double>> xArr = new ArrayList<List<Double>>();
         List<List<Double>> yArr = new ArrayList<List<Double>>();
 
-        System.out.print("Enter a1: ");
-        //Scanner scanner = new Scanner(System.in);
-        double a1 = -2d;//scanner.nextDouble();
-        //System.out.print("Enter a2: ");
-        double a2 = -8d;//scanner.nextDouble();
+        double a1 = -2d;
+        double a2 = -8d;
 
         double t;
         double[] x = {1, -1, -1, 1, 0.55};
@@ -80,7 +76,7 @@ public class Task {
 
         Pair<Double, Double> coordinates;
         List<XYChart> charts = new ArrayList<XYChart>();
-        XYChart chart = new XYChartBuilder().xAxisTitle("X").yAxisTitle("Y").width(600).height(400).build();
+        XYChart chart = new XYChartBuilder().xAxisTitle("X").yAxisTitle("Y").width(800).height(600).build();
 
         for (int i = 0; i < x.length; i++) {
             xArr.add(i, new ArrayList<Double>());
@@ -108,41 +104,77 @@ public class Task {
 
         charts.add(chart);
         new SwingWrapper<XYChart>(charts).displayChartMatrix();
-    }
+    }//+
 
     public static void task3() {
         Random random = new Random();
-        double[] chances = new double[6];
+        double tmp = 0;
         for (int k = 0; k < 10; k++) {
             for (int i = 0; i < 500; i++) {
-                int tmp = random.nextInt(6);
-                switch (tmp) {
-                    case 0:
-                        chances[0]++;
-                        break;
-                    case 1:
-                        chances[1]++;
-                        break;
-                    case 2:
-                        chances[2]++;
-                        break;
-                    case 3:
-                        chances[3]++;
-                        break;
-                    case 4:
-                        chances[4]++;
-                        break;
-                    case 5:
-                        chances[5]++;
-                        break;
+                tmp += (random.nextInt(6) + 1);
+            }
+            System.out.println(tmp / 500);
+            tmp = 0;
+        }
+    }//+;
+
+    public static void task4() {
+        double period = 1;//period = 1 week = 10080
+        Random random = new Random();
+        double[] accuracy = new double[3];
+        double accuracyAverage = 0;
+        double mu = 0;
+        double sigma = 1;
+        double experiments = 1000;
+        double counter = 0;
+
+        for (int k = 0; k < experiments; k++) {
+            for (int i = 0; i < accuracy.length; i++) {
+                double tmpX = 0;
+                for (int j = 0; j < period; j++) {
+                    double tmp = 0;
+                    for (int l = 1; l <= 12; l++) {
+                        tmp += random.nextDouble();
+                    }
+                    tmpX += mu + sigma * (tmp - 6);
+                }
+                accuracy[i] = tmpX; //writing accuracy for each chronometer
+                accuracyAverage += tmpX; // incrementing average accuracy
+            }
+            accuracyAverage /= accuracy.length; //subtracting accuracy by chronometer count - getting expectation
+            for (int i = 0; i < accuracy.length; i++) {
+                if (Math.abs(accuracyAverage - accuracy[i]) > 2) {
+                    counter++;
+                    break;
                 }
             }
-            for (double chance : chances) {
-                System.out.print(chance/500 + " ");
+        }
+        System.out.println(counter / experiments); //getting probability
+
+    }
+
+    public static void task5() {
+        Random random = new Random();
+        double h = 1;
+        double experiments = 1000;
+        double lambda = 1;
+        double probability = 0.25;
+        double length = 0;
+        double counter = 0;
+
+        for (int i = 0; i < experiments; i++) {
+            length = 0;
+            for (int j = 0; j < h; j++) {
+                if (probability >= random.nextDouble()) {
+                    length += (-1 / lambda) * Math.log(random.nextDouble());
+                }
             }
-            System.out.println();
-            chances = new double[6];
+            if (length >= h){
+                counter++;
+            }
 
         }
+        System.out.println(counter / experiments);
+        System.out.println(length);
     }
 }
