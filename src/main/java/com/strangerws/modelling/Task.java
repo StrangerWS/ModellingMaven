@@ -150,15 +150,14 @@ public class Task {
             }
         }
         System.out.println(counter / experiments); //getting probability
-
     }
 
     public static void task5() {
         Random random = new Random();
-        double h = 1;
+        double h = 10;
         double experiments = 1000;
-        double lambda = 1;
-        double probability = 0.25;
+        double lambda = 0.35;
+        double probability = 0.5;
         double length = 0;
         double counter = 0;
 
@@ -169,12 +168,11 @@ public class Task {
                     length += (-1 / lambda) * Math.log(random.nextDouble());
                 }
             }
-            if (length >= h){
+            if (length >= h) {
                 counter++;
             }
 
         }
         System.out.println(counter / experiments);
-        System.out.println(length);
     }
 }
